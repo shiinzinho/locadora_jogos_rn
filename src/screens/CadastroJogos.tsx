@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const CadastroJogos: React.FC = () => {
     const [nome, setNome] = useState<string>('');
@@ -11,7 +11,36 @@ const CadastroJogos: React.FC = () => {
     const [desenvolvedor, setDesenvolvedor] = useState<string>('');
     const [distribuidora, setDistribuidora] = useState<string>('');
     const [categoria, setCategoria] = useState<string>('');
-}
+
+    const cadastrarJogos = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('nome', nome);
+            formData.append('preco', preco);
+            formData.append('descricao', descricao);
+            formData.append('classificacao', classificacao);
+            formData.append('plataformas', plataformas);
+            formData.append('desenvolvedor', desenvolvedor);
+            formData.append('distribuidora', distribuidora);
+            formData.append('categoria', categoria);
+
+            const response = await axios.post ('http://10.137.11.208:8000/api/register/games', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+        } catch(error){
+            console.log(error);
+        }
+    }
+    return (
+        <View>
+            <TouchableOpacity onPress={cadastrarJogos}>
+                <Text>Cadastrar Jogo</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
         
 const styles = StyleSheet.create({
     container: {
