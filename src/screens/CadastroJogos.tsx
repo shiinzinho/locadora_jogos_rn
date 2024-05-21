@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontWeight: 'bold',
     marginLeft: 10,
-    color: 'white'
+    color: 'red'
   },
 
 })
