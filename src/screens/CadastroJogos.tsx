@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
   },
   button: {
-    backgroundColor: "white",
+    backgroundColor: "indigo",
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 30,
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     marginLeft: 65,
   },
   buttonText: {
-    color: "#2E8B57",
+    color: "pink",
     fontWeight: "bold",
     textAlign: "center",
   },
