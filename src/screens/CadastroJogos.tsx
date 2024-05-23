@@ -87,7 +87,7 @@ function CadastroJogos(): React.JSX.Element {
         formData.append('distribuidora', distribuidora);
         formData.append('categoria', categoria);
 
-        const response = await axios.post('http://10.137.11.206:8000/api/register/games', formData, {
+        const response = await axios.post('http://10.137.11.233:8000/api/register/games', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -107,7 +107,7 @@ function CadastroJogos(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <StatusBar backgroundColor={'white'}></StatusBar>
+    <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
         <View style={styles.header}>
           <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
         </View>
