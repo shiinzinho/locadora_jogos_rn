@@ -215,5 +215,7 @@ const styles = StyleSheet.create({
 
   }
 });
+//      const response = await axios.post(`http://10.137.11.206:8000/api/search/game/by/name?name=%${text}%&method=post`);
 
 export default ListagemJogos;
+
