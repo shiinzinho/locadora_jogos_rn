@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopRightRadius: 40,
     borderTopLeftRadius: 40,
-
   },
   form: {
     width: 360,

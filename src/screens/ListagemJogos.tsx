@@ -10,6 +10,7 @@ import {
   View,
   FlatList,
 } from "react-native";
+import { Image } from "react-native-animatable";
 
 interface Jogos {
   nome: string;
@@ -41,7 +42,7 @@ function ListagemJogos(): React.JSX.Element {
         // }
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -64,14 +65,17 @@ function ListagemJogos(): React.JSX.Element {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Listagem de Jogos</Text>
+        <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
       </View>
       <FlatList
         data={jogos}
         renderItem={renderItem}
         keyExtractor={(item) => item.nome}
-        style={{ height: '70%' }} // Define uma altura fixa para a lista de jogos
+        style={{ height: '70%' }}
       />
+      <View style={styles.footer}>
+
+      </View>
     </View>
   );
 }
@@ -91,6 +95,14 @@ const styles = StyleSheet.create({
     marginTop: -35,
     marginBottom: 40
   },
+  footer: {
+    paddingVertical: 28,
+    backgroundColor: '#151f42',
+    marginTop: 5,
+    alignItems: 'center',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -103,7 +115,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#f2f2f2',
     padding: 10,
-    borderRadius: 10, // Adiciona um raio de borda ao container branco
+    borderRadius: 10,
+  },
+  imagem: {
+    height: 100,
+    width: 340,
+    marginTop: -30,
+    marginRight: 15,
+    borderWidth: 5,
   },
   jogoText: {
     fontSize: 16,
