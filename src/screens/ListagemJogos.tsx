@@ -54,6 +54,11 @@ function ListagemJogos(): React.JSX.Element {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    setFilteredJogos(
+      jogos.filter((jogo) => jogo.nome.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }, [searchQuery]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -68,32 +73,6 @@ function ListagemJogos(): React.JSX.Element {
     }
   };
 
-  const handleSearch = async (text: string) => {
-    setSearchQuery(text);
-    if (text === '') {
-      setFilteredJogos(jogos);
-      return;
-    }
-  
-    try {
-      setLoading(true);
-      const response = await axios.post(`http://10.137.11.206:8000/api/search/game/by/name?name=%${text}%&method=post`);
-      if (Array.isArray(response.data.data)) {
-        setFilteredJogos(response.data.data);
-      } else {
-        // console.error('A API deve retornar um array de jogos');
-      }
-      console.log('Pesquisa realizada com sucesso:', response.data.data);
-    } catch (error) {
-      // console.error(`Erro: ${error.message}`);
-      // if (error.response) {
-      //   console.error(`Status: ${error.response.status} ${error.response.statusText}`);
-      // }
-      console.error('Erro ao realizar a pesquisa:', error.message);
-    }
-    setLoading(false);
-  };
-
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -105,7 +84,7 @@ function ListagemJogos(): React.JSX.Element {
         <Text style={styles.jogoText}>{`Desenvolvedor: ${item.desenvolvedor}`}</Text>
         <Text style={styles.jogoText}>{`Distribuidora: ${item.distribuidora}`}</Text>
         <Text style={styles.jogoText}>{`Categoria: ${item.categoria}`}</Text>
-       <TouchableOpacity style={styles.botao} onPress={() => handleDelete(item.id)}>
+        <TouchableOpacity style={styles.botao} onPress={() => handleDelete(item.id)}>
           <Text style={styles.botaoText}>Deletar</Text>
         </TouchableOpacity>
       </View>
@@ -123,7 +102,7 @@ function ListagemJogos(): React.JSX.Element {
           style={styles.searchInput}
           placeholder="Pesquisar..."
           value={searchQuery}
-          onChangeText={handleSearch}
+          onChangeText={(text) => setSearchQuery(text)}
         />
       </View>
       {loading ? (
@@ -131,7 +110,7 @@ function ListagemJogos(): React.JSX.Element {
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={searchQuery ? filteredJogos : jogos}
+          data={filteredJogos}
           renderItem={renderItem}
           keyExtractor={(item) => item.nome}
           style={{ height: '70%' }}
