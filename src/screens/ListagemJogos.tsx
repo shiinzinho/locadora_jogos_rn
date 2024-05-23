@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
 import { Image } from "react-native-animatable";
 
@@ -28,9 +29,11 @@ function ListagemJogos(): React.JSX.Element {
   const [jogos, setJogos] = useState<Jogos[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredJogos, setFilteredJogos] = useState<Jogos[]>(jogos);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get('http://10.137.11.206:8000/api/return/all/games');
         if (Array.isArray(response.data.data)) {
@@ -45,10 +48,12 @@ function ListagemJogos(): React.JSX.Element {
         //   console.error(`Status: ${error.response.status} ${error.response.statusText}`);
         // }
       }
+      setLoading(false);
     };
 
     fetchData();
   }, []);
+
 
   const handleDelete = async (id: number) => {
     try {
@@ -63,10 +68,30 @@ function ListagemJogos(): React.JSX.Element {
     }
   };
 
-  const handleSearch = (text: string) => {
+  const handleSearch = async (text: string) => {
     setSearchQuery(text);
-    const filtered = jogos.filter((jogo) => jogo.nome.toLowerCase().includes(text.toLowerCase()));
-    setFilteredJogos(filtered);
+    if (text === '') {
+      setFilteredJogos(jogos);
+      return;
+    }
+  
+    try {
+      setLoading(true);
+      const response = await axios.post(`http://10.137.11.206:8000/api/search/game/by/name?name=%${text}%&method=post`);
+      if (Array.isArray(response.data.data)) {
+        setFilteredJogos(response.data.data);
+      } else {
+        // console.error('A API deve retornar um array de jogos');
+      }
+      console.log('Pesquisa realizada com sucesso:', response.data.data);
+    } catch (error) {
+      // console.error(`Erro: ${error.message}`);
+      // if (error.response) {
+      //   console.error(`Status: ${error.response.status} ${error.response.statusText}`);
+      // }
+      console.error('Erro ao realizar a pesquisa:', error.message);
+    }
+    setLoading(false);
   };
 
   const renderItem = ({ item }: { item: Jogos }) => {
@@ -101,13 +126,17 @@ function ListagemJogos(): React.JSX.Element {
           onChangeText={handleSearch}
         />
       </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={searchQuery ? filteredJogos : jogos}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.nome}
-        style={{ height: '70%' }}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={searchQuery ? filteredJogos : jogos}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.nome}
+          style={{ height: '70%' }}
+        />
+      )}
       <View style={styles.footer}>
 
       </View>
