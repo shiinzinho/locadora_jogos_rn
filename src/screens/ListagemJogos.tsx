@@ -21,6 +21,7 @@ interface Jogos {
   desenvolvedor: string;
   distribuidora: string;
   categoria: string;
+  id: number;
 }
 
 function ListagemJogos(): React.JSX.Element {
@@ -46,6 +47,18 @@ function ListagemJogos(): React.JSX.Element {
     fetchData();
   }, []);
 
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://10.137.11.206:8000/api/delete/game/${id}`);
+      setJogos(jogos.filter((jogo) => jogo.id !== id));
+    } catch (error) {
+      // console.error(`Erro: ${error.message}`);
+      // if (error.response) {
+      //   console.error(`Status: ${error.response.status} ${error.response.statusText}`);
+      // }
+    }
+  };
+
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -57,9 +70,12 @@ function ListagemJogos(): React.JSX.Element {
         <Text style={styles.jogoText}>{`Desenvolvedor: ${item.desenvolvedor}`}</Text>
         <Text style={styles.jogoText}>{`Distribuidora: ${item.distribuidora}`}</Text>
         <Text style={styles.jogoText}>{`Categoria: ${item.categoria}`}</Text>
+       <TouchableOpacity style={styles.botao} onPress={() => handleDelete(item.id)}>
+          <Text style={styles.botaoText}>Deletar</Text>
+        </TouchableOpacity>
       </View>
     );
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -94,6 +110,21 @@ const styles = StyleSheet.create({
     height: 10,
     marginTop: -35,
     marginBottom: 8
+  },
+  botao: {
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    height: 42,
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  botaoText: {
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center',
   },
   footer: {
     backgroundColor: '#151f42',
@@ -130,8 +161,11 @@ const styles = StyleSheet.create({
     borderWidth: 5,
   },
   jogoText: {
-    fontSize: 16,
-    marginBottom: 5
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#D3BBEB'
+
   }
 });
 
