@@ -106,7 +106,7 @@ function CadastroJogos(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-    <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
+    <StatusBar barStyle="dark-content" backgroundColor={'#D9D9D9'}></StatusBar>
         <View style={styles.header}>
           <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
         </View>
@@ -115,7 +115,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Nome:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={nome}
             onChangeText={setNome}
           />
@@ -125,7 +125,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Preço:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={preco}
             onChangeText={setPreco}
           />
@@ -135,7 +135,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Descrição:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={descricao}
             onChangeText={setDescricao}
           />
@@ -145,7 +145,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Classificação:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={classificacao}
             onChangeText={setClassificacao}
           />
@@ -154,7 +154,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Plataformas:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={plataformas}
             onChangeText={setPlataformas}
           />
@@ -163,7 +163,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Desenvolvedor:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={desenvolvedor}
             onChangeText={setDesenvolvedor}
           />
@@ -173,7 +173,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Distribuidora:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={distribuidora}
             onChangeText={setDistribuidora}
           />
@@ -183,7 +183,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.form}>
           <TextInput style={styles.input}
             placeholder="Categoria:"
-            placeholderTextColor={'white'}
+            placeholderTextColor={'#000'}
             value={categoria}
             onChangeText={setCategoria}
           />
@@ -207,10 +207,10 @@ function CadastroJogos(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#301461'
+    backgroundColor: '#D9D9D9'
   },
   header: {
-    backgroundColor: '#151f42',
+    backgroundColor: '#fff',
     alignItems: 'center',
     paddingVertical: 100,
     borderBottomLeftRadius: 0,
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     marginTop: -35
   },
   footer: {
-    backgroundColor: '#151f42',
+    backgroundColor: '#fff',
     marginTop: 5,
     alignItems: 'center',
     borderTopRightRadius: 20,
@@ -239,8 +239,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     height: 50,
     borderBottomWidth: 2,
-    borderColor: '#fff',
-    color: 'white',
+    borderColor: '#000',
+    color: '#000',
     paddingLeft: 10,
     marginLeft: 10,
     marginRight: 10
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
   },
   button: {
-    backgroundColor: "indigo",
+    backgroundColor: "green",
     borderRadius: 25,
     paddingVertical: 15,
     paddingHorizontal: 30,
@@ -264,12 +264,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonText: {
-    color: "pink",
+    color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
   imageButtonText: {
-    color: '#3CB371',
     fontWeight: 'bold',
     marginTop: -40,
     marginLeft: 125

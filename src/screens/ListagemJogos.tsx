@@ -27,8 +27,7 @@ interface Jogos {
 function ListagemJogos(): React.JSX.Element {
   const [jogos, setJogos] = useState<Jogos[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredJogos, setFilteredJogos] = useState<Jogos[]>([]);
-
+  const [filteredJogos, setFilteredJogos] = useState<Jogos[]>(jogos);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +35,7 @@ function ListagemJogos(): React.JSX.Element {
         const response = await axios.get('http://10.137.11.206:8000/api/return/all/games');
         if (Array.isArray(response.data.data)) {
           setJogos(response.data.data);
+          setFilteredJogos(response.data.data);
         } else {
           // console.error('A API deve retornar um array de jogos');
         }
@@ -54,6 +54,7 @@ function ListagemJogos(): React.JSX.Element {
     try {
       await axios.delete(`http://10.137.11.206:8000/api/delete/game/${id}`);
       setJogos(jogos.filter((jogo) => jogo.id !== id));
+      setFilteredJogos(filteredJogos.filter((jogo) => jogo.id !== id));
     } catch (error) {
       // console.error(`Erro: ${error.message}`);
       // if (error.response) {
@@ -67,7 +68,7 @@ function ListagemJogos(): React.JSX.Element {
     const filtered = jogos.filter((jogo) => jogo.nome.toLowerCase().includes(text.toLowerCase()));
     setFilteredJogos(filtered);
   };
-  
+
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -101,7 +102,7 @@ function ListagemJogos(): React.JSX.Element {
         />
       </View>
       <FlatList showsVerticalScrollIndicator={false}
-        data={jogos}
+        data={searchQuery ? filteredJogos : jogos}
         renderItem={renderItem}
         keyExtractor={(item) => item.nome}
         style={{ height: '70%' }}
