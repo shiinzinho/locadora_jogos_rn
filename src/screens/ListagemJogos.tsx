@@ -26,6 +26,9 @@ interface Jogos {
 
 function ListagemJogos(): React.JSX.Element {
   const [jogos, setJogos] = useState<Jogos[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredJogos, setFilteredJogos] = useState<Jogos[]>([]);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +62,12 @@ function ListagemJogos(): React.JSX.Element {
     }
   };
 
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+    const filtered = jogos.filter((jogo) => jogo.nome.toLowerCase().includes(text.toLowerCase()));
+    setFilteredJogos(filtered);
+  };
+  
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -79,9 +88,17 @@ function ListagemJogos(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
+      <StatusBar barStyle="dark-content" backgroundColor={'#fff'}></StatusBar>
       <View style={styles.header}>
         <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
+      </View>
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Pesquisar..."
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
       </View>
       <FlatList showsVerticalScrollIndicator={false}
         data={jogos}
@@ -96,13 +113,14 @@ function ListagemJogos(): React.JSX.Element {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#301461'
+    backgroundColor: '#D9D9D9'
   },
   header: {
-    backgroundColor: '#151f42',
+    backgroundColor: '#fff',
     alignItems: 'center',
     paddingVertical: 100,
     borderBottomLeftRadius: 0,
@@ -120,6 +138,28 @@ const styles = StyleSheet.create({
     width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
+  },
+  searchInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    marginHorizontal: 20,
+  },
+  searchBar: {
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: 'black',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 2,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    marginBottom: 5,
   },
   botaoText: {
     fontSize: 16,
@@ -127,7 +167,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   footer: {
-    backgroundColor: '#151f42',
+    backgroundColor: '#fff',
     marginTop: 5,
     alignItems: 'center',
     borderTopRightRadius: 20,
@@ -145,11 +185,10 @@ const styles = StyleSheet.create({
   },
   jogoContainer: {
     marginBottom: 20,
-    backgroundColor: '#9250CD',
+    backgroundColor: '#000',
     padding: 10,
     borderRadius: 10,
     alignSelf: 'center',
-    alignItems: 'center',
     width: 310,
     flex: 1,
   },
@@ -164,7 +203,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#D3BBEB'
+    color: '#fff'
 
   }
 });
