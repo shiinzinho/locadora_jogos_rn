@@ -106,11 +106,11 @@ function CadastroJogos(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
     <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
         <View style={styles.header}>
           <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
         </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
 
         <View style={styles.form}>
           <TextInput style={styles.input}
@@ -194,10 +194,11 @@ function CadastroJogos(): React.JSX.Element {
         <TouchableOpacity style={styles.button} onPress={cadastrarJogos}>
           <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
+        </ScrollView>
         <View style={styles.footer}>
 
         </View>
-      </ScrollView>
+
     </View>
 
   );
@@ -218,12 +219,13 @@ const styles = StyleSheet.create({
     marginTop: -35
   },
   footer: {
-    paddingVertical: 50,
     backgroundColor: '#151f42',
-    marginTop: 20,
+    marginTop: 5,
     alignItems: 'center',
-    borderTopRightRadius: 40,
-    borderTopLeftRadius: 40,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    height: 60,
+    flexGrow: 0,
   },
   form: {
     width: 360,
@@ -259,6 +261,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 250,
     marginLeft: 65,
+    marginBottom: 10,
   },
   buttonText: {
     color: "pink",

@@ -7,7 +7,7 @@ import ListagemJogos from "./src/screens/ListagemJogos";
 
 function App(): React.JSX.Element {
   return(
-    <CadastroJogos />
+    <ListagemJogos />
   );
 }
 export default App;

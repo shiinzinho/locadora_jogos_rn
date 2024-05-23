@@ -67,7 +67,7 @@ function ListagemJogos(): React.JSX.Element {
       <View style={styles.header}>
         <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
       </View>
-      <FlatList
+      <FlatList showsVerticalScrollIndicator={false}
         data={jogos}
         renderItem={renderItem}
         keyExtractor={(item) => item.nome}
@@ -93,15 +93,16 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 100,
     height: 10,
     marginTop: -35,
-    marginBottom: 40
+    marginBottom: 8
   },
   footer: {
-    paddingVertical: 28,
     backgroundColor: '#151f42',
     marginTop: 5,
     alignItems: 'center',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    height: 60,
+    flexGrow: 0,
   },
   headerText: {
     fontSize: 24,
@@ -113,9 +114,13 @@ const styles = StyleSheet.create({
   },
   jogoContainer: {
     marginBottom: 20,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#9250CD',
     padding: 10,
     borderRadius: 10,
+    alignSelf: 'center',
+    alignItems: 'center',
+    width: 310,
+    flex: 1,
   },
   imagem: {
     height: 100,
