@@ -1,6 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  FlatList,
+} from "react-native";
 
 interface Jogos {
   nome: string;
@@ -13,56 +22,56 @@ interface Jogos {
   categoria: string;
 }
 
-function CadastroJogos(): React.JSX.Element {
-  const [jogos, setJogos] = useState<Jogos[]>([
-    {
-      nome: "Jogo 1",
-      preco: "50,00",
-      descricao: "Descrição do Jogo 1",
-      classificacao: "12",
-      plataformas: "PC, PS4",
-      desenvolvedor: "Desenvolvedor 1",
-      distribuidora: "Distribuidora 1",
-      categoria: "Ação"
-    },
-    {
-      nome: "Jogo 2",
-      preco: "60,00",
-      descricao: "Descrição do Jogo 2",
-      classificacao: "16",
-      plataformas: "PC, Xbox",
-      desenvolvedor: "Desenvolvedor 2",
-      distribuidora: "Distribuidora 2",
-      categoria: "Aventura"
-    }
-  ]);
+function ListagemJogos(): React.JSX.Element {
+  const [jogos, setJogos] = useState<Jogos[]>([]);
 
-  const renderJogo = (jogo: Jogos, index: number) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://10.137.11.206:8000/api/return/all/games');
+        if (Array.isArray(response.data.data)) {
+          setJogos(response.data.data);
+        } else {
+          // console.error('A API deve retornar um array de jogos');
+        }
+      } catch (error) {
+        // console.error(`Erro: ${error.message}`);
+        // if (error.response) {
+        //   console.error(`Status: ${error.response.status} ${error.response.statusText}`);
+        // }
+      }
+    };
+  
+    fetchData();
+  }, []);
+
+  const renderItem = ({ item }: { item: Jogos }) => {
     return (
-      <View key={index} style={styles.jogoContainer}>
-        <Text style={styles.jogoText}>{`Nome: ${jogo.nome}`}</Text>
-        <Text style={styles.jogoText}>{`Preço: ${jogo.preco}`}</Text>
-        <Text style={styles.jogoText}>{`Descrição: ${jogo.descricao}`}</Text>
-        <Text style={styles.jogoText}>{`Classificação: ${jogo.classificacao}`}</Text>
-        <Text style={styles.jogoText}>{`Plataformas: ${jogo.plataformas}`}</Text>
-        <Text style={styles.jogoText}>{`Desenvolvedor: ${jogo.desenvolvedor}`}</Text>
-        <Text style={styles.jogoText}>{`Distribuidora: ${jogo.distribuidora}`}</Text>
-        <Text style={styles.jogoText}>{`Categoria: ${jogo.categoria}`}</Text>
+      <View style={styles.jogoContainer}>
+        <Text style={styles.jogoText}>{`Nome: ${item.nome}`}</Text>
+        <Text style={styles.jogoText}>{`Preço: ${item.preco}`}</Text>
+        <Text style={styles.jogoText}>{`Descrição: ${item.descricao}`}</Text>
+        <Text style={styles.jogoText}>{`Classificação: ${item.classificacao}`}</Text>
+        <Text style={styles.jogoText}>{`Plataformas: ${item.plataformas}`}</Text>
+        <Text style={styles.jogoText}>{`Desenvolvedor: ${item.desenvolvedor}`}</Text>
+        <Text style={styles.jogoText}>{`Distribuidora: ${item.distribuidora}`}</Text>
+        <Text style={styles.jogoText}>{`Categoria: ${item.categoria}`}</Text>
       </View>
     );
-  };
+  }
 
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Listagem de Jogos</Text>
-        </View>
-        <View style={styles.list}>
-          {jogos.map(renderJogo)}
-        </View>
-      </ScrollView>
+      <StatusBar barStyle="dark-content" backgroundColor={'#6c5ce7'}></StatusBar>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Listagem de Jogos</Text>
+      </View>
+      <FlatList
+        data={jogos}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.nome}
+        style={{ height: '70%' }} // Define uma altura fixa para a lista de jogos
+      />
     </View>
   );
 }
@@ -79,21 +88,27 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 100,
     height: 10,
-    marginTop: -35
+    marginTop: -35,
+    marginBottom: 40
   },
-  list: {
-    paddingVertical: 20,
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 10,
+    backgroundColor: '#151f42'
   },
   jogoContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    marginVertical: 5,
-    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#f2f2f2',
+    padding: 10,
+    borderRadius: 10, // Adiciona um raio de borda ao container branco
   },
   jogoText: {
     fontSize: 16,
-    marginBottom: 5,
-  },
+    marginBottom: 5
+  }
 });
 
-export default CadastroJogos;
+export default ListagemJogos;

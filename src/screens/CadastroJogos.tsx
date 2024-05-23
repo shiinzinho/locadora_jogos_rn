@@ -87,7 +87,7 @@ function CadastroJogos(): React.JSX.Element {
         formData.append('distribuidora', distribuidora);
         formData.append('categoria', categoria);
 
-        const response = await axios.post('http://10.137.11.233:8000/api/register/games', formData, {
+        const response = await axios.post('http://10.137.11.206:8000/api/register/games', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
