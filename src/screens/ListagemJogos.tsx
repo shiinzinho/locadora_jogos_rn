@@ -101,7 +101,8 @@ function ListagemJogos(): React.JSX.Element {
           onChangeText={handleSearch}
         />
       </View>
-      <FlatList showsVerticalScrollIndicator={false}
+      <FlatList
+        showsVerticalScrollIndicator={false}
         data={searchQuery ? filteredJogos : jogos}
         renderItem={renderItem}
         keyExtractor={(item) => item.nome}
@@ -113,7 +114,6 @@ function ListagemJogos(): React.JSX.Element {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
