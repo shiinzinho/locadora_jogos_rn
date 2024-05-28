@@ -13,6 +13,7 @@ function App(): React.JSX.Element {
       <Stack.Navigator>
       <Stack.Screen name='Cadastro' component={CadastroJogos} options={{headerShown: false}}/>
       <Stack.Screen name='Listagem' component={ListagemJogos} options={{headerShown: false}}/>
+      <Stack.Screen name='Editar' component={ListagemJogos} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
