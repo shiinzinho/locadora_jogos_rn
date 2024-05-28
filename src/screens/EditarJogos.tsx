@@ -29,7 +29,7 @@ const EditarJogos: React.FC<Props> = ({ route }) => {
       console.error("Jogo ID doesn't exist!");
       return;
     }
-
+  
     const data = {
       nome,
       preco,
@@ -43,8 +43,9 @@ const EditarJogos: React.FC<Props> = ({ route }) => {
     
     try {
       const response = await axios.put(`http://10.137.11.206:8000/api/update/game/${jogo.id}`, data);
-
-      // ...
+  
+      // Navegar para a página de listagem após a atualização ser concluída com sucesso
+      navigation.navigate('Listagem');
     } catch (error) {
       console.error(error.response);
     }
