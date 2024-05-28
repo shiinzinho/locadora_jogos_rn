@@ -50,7 +50,6 @@ const EditarJogos: React.FC<Props> = ({ route }) => {
       console.error(error.response);
     }
   };
-
   const navigation = useNavigation();
 
   return (
