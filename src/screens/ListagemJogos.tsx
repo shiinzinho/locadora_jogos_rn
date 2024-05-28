@@ -116,9 +116,21 @@ function ListagemJogos(): React.JSX.Element {
           style={{ height: '70%' }}
         />
       )}
-      <View style={styles.footer}>
+        <View style={styles.footer}>
+                <TouchableOpacity>
+                    <Image 
+                    source={require('../assets/images/casa.png')}
+                    style={styles.footerIcon}
+                    />
+                </TouchableOpacity>
 
-      </View>
+                <TouchableOpacity>
+                    <Image 
+                    source={require('../assets/images/menu.png')}
+                    style={styles.footerIcon}
+                    />
+                </TouchableOpacity>
+            </View>
     </View>
   );
 }
@@ -182,7 +194,14 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     height: 60,
     flexGrow: 0,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    
   },
+  footerIcon: {
+    width: 30,
+    height: 30
+},
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
