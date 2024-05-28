@@ -107,7 +107,7 @@ function CadastroJogos(): React.JSX.Element {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-    <StatusBar barStyle="dark-content" backgroundColor={'#D9D9D9'}></StatusBar>
+    <StatusBar barStyle="dark-content" backgroundColor={'#fff'}></StatusBar>
         <View style={styles.header}>
           <Image style={styles.imagem} source={require('../assets/images/logo.png')}></Image>
         </View>
@@ -199,7 +199,7 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.footer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                     <Image 
-                    source={require('../assets/images/casa.png')}
+                    source={require('../assets/images/documento.png')}
                     style={styles.footerIcon}
                     />
                 </TouchableOpacity>

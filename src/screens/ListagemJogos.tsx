@@ -73,7 +73,7 @@ function ListagemJogos(): React.JSX.Element {
       // }
     }
   };
-  const navigation = useNavigation();
+
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -85,13 +85,18 @@ function ListagemJogos(): React.JSX.Element {
         <Text style={styles.jogoText}>{`Desenvolvedor: ${item.desenvolvedor}`}</Text>
         <Text style={styles.jogoText}>{`Distribuidora: ${item.distribuidora}`}</Text>
         <Text style={styles.jogoText}>{`Categoria: ${item.categoria}`}</Text>
-        <TouchableOpacity style={styles.botao} onPress={() => handleDelete(item.id)}>
-          <Text style={styles.botaoText}>Deletar</Text>
-        </TouchableOpacity>
+        <View style={styles.botaoContainer}>
+          <TouchableOpacity style={styles.botaoDeletar} onPress={() => handleDelete(item.id)}>
+            <Text style={styles.botaoText}>Deletar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.botaoEditar} onPress={() => navigation.navigate('Editar')}>
+            <Text style={styles.botaoText}>Editar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
-
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'#fff'}></StatusBar>
@@ -117,21 +122,21 @@ function ListagemJogos(): React.JSX.Element {
           style={{ height: '70%' }}
         />
       )}
-       <View style={styles.footer}>
-                <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
-                    <Image 
-                    source={require('../assets/images/casa.png')}
-                    style={styles.footerIcon}
-                    />
-                </TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
+          <Image
+            source={require('../assets/images/documento.png')}
+            style={styles.footerIcon}
+          />
+        </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
-                    <Image 
-                    source={require('../assets/images/menu.png')}
-                    style={styles.footerIcon}
-                    />
-                </TouchableOpacity>
-            </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
+          <Image
+            source={require('../assets/images/menu.png')}
+            style={styles.footerIcon}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -150,16 +155,29 @@ const styles = StyleSheet.create({
     marginTop: -35,
     marginBottom: 8
   },
-  botao: {
+  botaoDeletar: {
     backgroundColor: 'red',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
     height: 42,
-    width: '50%',
+    width: '49%', // ajuste a largura para 50%
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
+  },
+  botaoEditar: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    height: 42,
+    width: '49%', // ajuste a largura para 50%
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  botaoContainer: {
+    flexDirection: 'row', // adicione essa propriedade
+    justifyContent: 'space-between', // adicione essa propriedade
   },
   searchInput: {
     height: 40,
@@ -197,12 +215,12 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    
+
   },
   footerIcon: {
     width: 30,
     height: 30
-},
+  },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
