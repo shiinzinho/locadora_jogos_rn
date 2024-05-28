@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ScrollView, StatusBar, StyleSheet, TextInput, TouchableOpacity, } from "react-native";
 import { Image, View, Text } from "react-native-animatable";
 //npm install react-native-animatable
+import { useNavigation } from "@react-navigation/native";
 
 function CadastroJogos(): React.JSX.Element {
   const [jogos, setJogos] = useState<Jogos[]>([]);
@@ -103,7 +104,7 @@ function CadastroJogos(): React.JSX.Element {
     }
 
   }
-
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
     <StatusBar barStyle="dark-content" backgroundColor={'#D9D9D9'}></StatusBar>
@@ -196,14 +197,14 @@ function CadastroJogos(): React.JSX.Element {
         </TouchableOpacity>
         </ScrollView>
         <View style={styles.footer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                     <Image 
                     source={require('../assets/images/casa.png')}
                     style={styles.footerIcon}
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
                     <Image 
                     source={require('../assets/images/menu.png')}
                     style={styles.footerIcon}

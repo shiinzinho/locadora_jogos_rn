@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {
@@ -72,7 +73,7 @@ function ListagemJogos(): React.JSX.Element {
       // }
     }
   };
-
+  const navigation = useNavigation();
   const renderItem = ({ item }: { item: Jogos }) => {
     return (
       <View style={styles.jogoContainer}>
@@ -116,15 +117,15 @@ function ListagemJogos(): React.JSX.Element {
           style={{ height: '70%' }}
         />
       )}
-        <View style={styles.footer}>
-                <TouchableOpacity>
+       <View style={styles.footer}>
+                <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                     <Image 
                     source={require('../assets/images/casa.png')}
                     style={styles.footerIcon}
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
                     <Image 
                     source={require('../assets/images/menu.png')}
                     style={styles.footerIcon}
