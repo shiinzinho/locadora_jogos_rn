@@ -25,13 +25,13 @@ function CadastroJogos(): React.JSX.Element {
     } else if (nome.length < 5 || nome.length > 120) {
       newErrors.nome = "O campo nome deve ter entre 5 e 120 caracteres";
     }
-  
+
     if (!preco) {
       newErrors.preco = "O campo preço é obrigatório";
-    } else if (!/^\d+(\.\d{1,2})?$/.test(preco)) {
-      newErrors.preco = "O campo preço deve ser um número decimal com no máximo 2 casas decimais";
+    } else if (!/^\d+(\.\d{2})$/.test(preco)) {
+      newErrors.preco = "O campo preço deve ter 2 casas decimais";
     }
-
+    
     if (!descricao) {
       newErrors.descricao = "O campo descrição é obrigatório";
     } else if (descricao.length < 10 || descricao.length > 800) {
