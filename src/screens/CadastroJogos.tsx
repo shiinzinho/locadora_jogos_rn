@@ -111,7 +111,6 @@ function CadastroJogos(): React.JSX.Element {
   };
   
   const resetFields = () => {
-    console.log('Resetando campos...');
     setNome('');
     setPreco('');
     setDescricao('');
