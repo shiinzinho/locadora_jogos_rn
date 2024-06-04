@@ -76,8 +76,8 @@ function CadastroJogos(): React.JSX.Element {
 
   const cadastrarJogos = async () => {
     if (validateForm()) {
+      console.log('Formulário válido!');
       try {
-
         const formData = new FormData();
         formData.append('nome', nome);
         formData.append('preco', preco);
@@ -87,23 +87,42 @@ function CadastroJogos(): React.JSX.Element {
         formData.append('desenvolvedor', desenvolvedor);
         formData.append('distribuidora', distribuidora);
         formData.append('categoria', categoria);
-
+  
+        console.log('FormData:', formData);
+  
         const response = await axios.post('http://10.137.11.206:8000/api/register/games', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
-        console.log(response)
-      } catch (error) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          setErrors(error.response.data.errors);
+        console.log('Response:', response);
+        if (response.status === 200) {
+          resetFields();
+          console.log('Cadastro realizado com sucesso!');
         } else {
-          console.log(error);
+          console.log('Erro ao cadastrar:', response.status);
         }
+      } catch (error) {
+        console.log('Erro ao cadastrar:', error);
       }
+    } else {
+      console.log('Formulário inválido!');
     }
-
-  }
+  };
+  
+  const resetFields = () => {
+    console.log('Resetando campos...');
+    setNome('');
+    setPreco('');
+    setDescricao('');
+    setClassificacao('');
+    setPlataformas('');
+    setDesenvolvedor('');
+    setDistribuidora('');
+    setCategoria('');
+    setErrors('');
+  };
+  
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
