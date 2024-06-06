@@ -223,8 +223,8 @@ justifyContent: 'space-around',
 
 },
 footerIcon: {
-width: 30,
-height: 30
+width: 40,
+height: 40
 },
 headerText: {
 fontSize: 24,

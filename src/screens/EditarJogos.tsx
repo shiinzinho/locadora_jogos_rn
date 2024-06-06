@@ -263,8 +263,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   footerIcon: {
-    width: 30,
-    height: 30
+    width: 40,
+    height: 40
   },
   form: {
     width: 360,
