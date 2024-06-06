@@ -94,41 +94,36 @@ function CadastroJogos(): React.JSX.Element {
 
  
   
-const cadastrarJogos = async () => {
-  if (validateForm() && await checkUniqueName()) {
-    console.log('Formulário válido!');
-    try {
-      const formData = new FormData();
-      formData.append('nome', nome);
-      formData.append('preco', preco);
-      formData.append('descricao', descricao);
-      formData.append('classificacao', classificacao);
-      formData.append('plataformas', plataformas);
-      formData.append('desenvolvedor', desenvolvedor);
-      formData.append('distribuidora', distribuidora);
-      formData.append('categoria', categoria);
-
-      console.log('FormData:', formData);
-
-      const response = await axios.post('http://10.137.11.206:8000/api/register/games', formData, {
-        headers: {
-          'Content-Type': 'ultipart/form-data'
+  const cadastrarJogos = async () => {
+    if (validateForm() && await checkUniqueName()) {
+      console.log('Formulário válido!');
+      try {
+        const data = {
+          nome,
+          preco,
+          descricao,
+          classificacao,
+          plataformas,
+          desenvolvedor,
+          distribuidora,
+          categoria,
+        };
+  
+        const response = await axios.post('http://10.137.11.206:8000/api/register/games', data);
+        console.log('Response:', response);
+        if (response.status === 200) {
+          resetFields();
+          console.log('Cadastro realizado com sucesso!');
+        } else {
+          console.log('Erro ao cadastrar:', response.status);
         }
-      });
-      console.log('Response:', response);
-      if (response.status === 200) {
-        resetFields();
-        console.log('Cadastro realizado com sucesso!');
-      } else {
-        console.log('Erro ao cadastrar:', response.status);
+      } catch (error) {
+        console.log('Erro ao cadastrar:', error);
       }
-    } catch (error) {
-      console.log('Erro ao cadastrar:', error);
+    } else {
+      console.log('Formulário inválido!');
     }
-  } else {
-    console.log('Formulário inválido!');
-  }
-};
+  };
   
   const resetFields = () => {
     setNome('');
