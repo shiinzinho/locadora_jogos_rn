@@ -67,7 +67,7 @@ function ListagemJogos(): React.JSX.Element {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://10.137.11.207:8000/api/delete/game/${id}`);
+      await axios.delete(`http://10.137.11.206:8000/api/delete/game/${id}`);
       setJogos(jogos.filter((jogo) => jogo.id!== id));
       setFilteredJogos(filteredJogos.filter((jogo) => jogo.id!== id));
     } catch (error) {
