@@ -129,14 +129,14 @@ function ListagemJogos(): React.JSX.Element {
 <View style={styles.footer}>
 <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
   <Image
-    source={require('../assets/images/documento.png')}
+    source={require('../assets/images/note.png')}
     style={styles.footerIcon}
   />
 </TouchableOpacity>
 
 <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
   <Image
-    source={require('../assets/images/menu.png')}
+    source={require('../assets/images/checklistSelect.png')}
     style={styles.footerIcon}
   />
 </TouchableOpacity>

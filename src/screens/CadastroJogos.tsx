@@ -217,14 +217,14 @@ function CadastroJogos(): React.JSX.Element {
         <View style={styles.footer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
                     <Image 
-                    source={require('../assets/images/documento.png')}
+                    source={require('../assets/images/noteSelect.png')}
                     style={styles.footerIcon}
                     />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => navigation.navigate('Listagem')}>
                     <Image 
-                    source={require('../assets/images/menu.png')}
+                    source={require('../assets/images/checklist.png')}
                     style={styles.footerIcon}
                     />
                 </TouchableOpacity>
