@@ -11,6 +11,7 @@ interface Props {
 const EditarJogos: React.FC<Props> = ({ route }) => {
   const jogo = route.params.jogo ?? {}; // fornecer um objeto vazio como padrão
   const [nome, setNome] = useState(jogo.nome ?? ''); // fornecer um valor padrão vazio
+  const [nomeOriginal, setNomeOriginal] = useState(jogo.nome ?? ''); // armazena o nome original do jogo
   const [preco, setPreco] = useState(jogo.preco ?? '');
   const [descricao, setDescricao] = useState(jogo.descricao ?? '');
   const [classificacao, setClassificacao] = useState(jogo.classificacao ?? '');
@@ -21,8 +22,8 @@ const EditarJogos: React.FC<Props> = ({ route }) => {
   const [errors, setErrors] = useState({}); // estado para armazenar erros
 
   useEffect(() => {
-    // lidar com a atualização do estado quando o componente é montado ou desmontado
-  }, []);
+    setNomeOriginal(jogo.nome ?? ''); // atualiza o nome original do jogo quando o componente é montado
+  }, [jogo]);
 
   const handleUpdate = async () => {
     if (!jogo.id) {
@@ -45,16 +46,18 @@ const EditarJogos: React.FC<Props> = ({ route }) => {
     const newErrors = {};
 
     // Verificar se o nome do jogo já existe
-    const response = await axios.get(`http://10.137.11.206:8000/api/check/unique`, {
-      params: {
-        nome: nome,
-        id: jogo.id // ignorar o jogo que está sendo editado
-      }
-    });
+    if (nome !== nomeOriginal) { // se o nome foi alterado, validar nome único
+      const response = await axios.get(`http://10.137.11.206:8000/api/check/unique`, {
+        params: {
+          nome: nome,
+          id: jogo.id // ignorar o jogo que está sendo editado
+        }
+      });
 
-    if (!response.data.status) {
-      newErrors.nome = response.data.message;
-      hasErrors = true;
+      if (!response.data.status) {
+        newErrors.nome = response.data.message;
+        hasErrors = true;
+      }
     }
 
     if (!nome) {
