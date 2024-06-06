@@ -31,13 +31,12 @@ function ListagemJogos(): React.JSX.Element {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredJogos, setFilteredJogos] = useState<Jogos[]>(jogos);
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://10.137.11.206:8000/api/return/all/games');
+        const response = await axios.get('http://10.137.11.205:8000/api/return/all/games');
         if (Array.isArray(response.data.data)) {
           setJogos(response.data.data);
           setFilteredJogos(response.data.data);
@@ -52,19 +51,21 @@ function ListagemJogos(): React.JSX.Element {
       }
       setLoading(false);
     };
-  
-    const unsubscribe = navigation.addListener('focus', fetchData);
-  
-    return () => {
-      unsubscribe();
-    };
-  }, [navigation]);
-  
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setFilteredJogos(
+      jogos.filter((jogo) => jogo.nome.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  }, [searchQuery]);
+
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://10.137.11.206:8000/api/delete/game/${id}`);
-      setJogos(jogos.filter((jogo) => jogo.id!== id));
-      setFilteredJogos(filteredJogos.filter((jogo) => jogo.id!== id));
+      await axios.delete(`http://10.137.11.205:8000/api/delete/game/${id}`);
+      setJogos(jogos.filter((jogo) => jogo.id !== id));
+      setFilteredJogos(filteredJogos.filter((jogo) => jogo.id !== id));
     } catch (error) {
       // console.error(`Erro: ${error.message}`);
       // if (error.response) {
@@ -88,16 +89,15 @@ function ListagemJogos(): React.JSX.Element {
           <TouchableOpacity style={styles.botaoDeletar} onPress={() => handleDelete(item.id)}>
             <Text style={styles.botaoText}>Deletar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.botaoEditar} onPress={() => navigation.navigate('Editar', { jogo: item })}>
-            <Text style={styles.botaoText}>Editar</Text>
-          </TouchableOpacity>
+<TouchableOpacity style={styles.botaoEditar} onPress={() => navigation.navigate('Editar', { jogo: item })}>
+  <Text style={styles.botaoText}>Editar</Text>
+</TouchableOpacity>
         </View>
       </View>
     );
   };
-
+  const navigation = useNavigation();
   return (
-
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'#fff'}></StatusBar>
       <View style={styles.header}>
@@ -255,4 +255,3 @@ const styles = StyleSheet.create({
 });
 
 export default ListagemJogos;
-
